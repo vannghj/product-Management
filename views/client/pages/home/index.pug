@@ -1,3 +1,17 @@
 extends ../../layouts/default
+include ../../mixin/box-head
+include ../../mixin/product-layout
+
 block main
-    h1 Trang chu
+    .container.my-3
+        .row
+            .col-12
+                +box-head("San pham noi bat")
+
+        +product-grid(productsFeatured)
+    .container.my-3
+        .row
+            .col-12
+                +box-head("San pham moi")
+
+        +product-grid(productsNew)

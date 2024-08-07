@@ -1,13 +1,20 @@
-const ProductCategory = require("../../models/product-category.model");
-const createTreeHelper = require("../../helpers/create-tree");
+const Product = require("../../models/product.model");
+const productsHelper = require("../../helpers/products");
 module.exports.index = async (req, res) => {
-    const records = await ProductCategory.find({
-        deleted: false
-    });
-    const newProductCategory = createTreeHelper.tree(records);
-
+    const productsFeatured = await Product.find({
+        featured: "1",
+        deleted: false,
+        status: "active"
+    })
+    const newProductFeatured = productsHelper.priceNewProduct(productsFeatured);
+    const productsNew = await Product.find({
+        deleted: false,
+        status: "active"
+    }).sort({position:"desc"}).limit(6);
+    const newProductsNew = productsHelper.priceNewProduct(productsNew);
     res.render("client/pages/home/index", {
         pageTitle: "Trang chu",
-        layoutProductCategory: newProductCategory
+        productsFeatured: newProductFeatured,
+        productsNew:newProductsNew
     });
 };
