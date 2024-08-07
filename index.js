@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-
+const moment = require("moment");
+var path = require("path");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const flash = require("express-flash");
@@ -22,7 +23,13 @@ app.use(cookieParser("keyboardcat"));
 app.use(session({cookie:{maxAge:60000}}));
 app.use(flash());
 //flash
+
+//tinymce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')))
+
+//
 app.locals.prefixAdmin =systemCongig.prefixAdmin;
+app.locals.moment = moment;
 
 app.use(express.static(`${__dirname}/public`));
 

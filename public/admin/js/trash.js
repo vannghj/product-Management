@@ -36,7 +36,6 @@ if(buttonDelete.length > 0) {
 // end delete item
 // revive item
 const buttonRevive = document.querySelectorAll("[button-revive]");
-console.log(buttonRevive);
 if(buttonRevive.length > 0) {
     const formReviveItem = document.querySelector("#form-revive-item");
     const path = formReviveItem.getAttribute("data-path");

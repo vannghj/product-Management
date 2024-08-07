@@ -1,0 +1,9 @@
+mixin select-tree-edit(records, level, data)
+    each item in records
+        - const prefix = Array(level + 1).join("-- ")
+        option(
+            value=item.id
+            selected=(item.id == data)
+        ) #{prefix}#{item.title}
+            if item.children && item.children.length > 0
+                +select-tree-edit(item.children, level + 1,data)

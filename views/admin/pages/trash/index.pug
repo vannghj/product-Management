@@ -7,96 +7,121 @@ include ../../mixin/alert
 block main
     +alert-success("5000")
     h1 Cac san pham da xoa
-
-    .card.mb-3
-        .card-header  Tìm kiếm
-        .card-body
-            .row
-                .col-6
-                    +search(keyword)
-
-    .card.mb-3
-        .card-header Danh sach
+    if(role.permissions.includes("trashs_view"))
+        .card.mb-3
+            .card-header  Tìm kiếm
             .card-body
-                form(
-                    action=`${prefixAdmin}/trash/change-multi?_method=PATCH`
-                    method="POST"
-                    form-change-multi
-                )
-                    .d-flex.align-items-start
-                        .form-group
-                            select(name="type" class="form-control")
-                                option(disabled selected) -- Chon hanh dong --
-                                option(value="delete-all") Xoa vinh vien tat ca
-                                option(value="revive-all") Phuc hoi tat ca
-                        .form-group
-                            input(
-                                type="text"
-                                name="ids"
-                                value=""
-                                class="form-control d-none"
-                            )
-                        button(type="submit" class="btn btn-primary") Ap dung
-        table(
-            class="table table-hover table-sm"
-            checkbox-multi
-        )
-            thead
-                tr
-                    th
-                        input(type="checkbox" name="checkall")
-                    th STT
-                    th Hinh anh
-                    th Tieu de
-                    th Gia
-                    th Trang thai
-                    th Hanh dong
-            tbody
-                each item, index in products
+                .row
+                    .col-6
+                        +search(keyword)
+
+        .card.mb-3
+            .card-header Danh sach
+                .card-body
+                    form(
+                        action=`${prefixAdmin}/trash/change-multi?_method=PATCH`
+                        method="POST"
+                        form-change-multi
+                    )
+                        .d-flex.align-items-start
+                            .form-group
+                                select(name="type" class="form-control")
+                                    option(disabled selected) -- Chon hanh dong --
+                                    option(value="delete-all") Xoa vinh vien tat ca
+                                    option(value="revive-all") Phuc hoi tat ca
+                            .form-group
+                                input(
+                                    type="text"
+                                    name="ids"
+                                    value=""
+                                    class="form-control d-none"
+                                )
+                            button(type="submit" class="btn btn-primary") Ap dung
+            table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead
                     tr
                         th
-                            input(
-                                type="checkbox"
-                                name="id"
-                                value=item.id
-                            )
-                        td #{index + 1}
-                        td
-                            img(
-                                src=item.thumbnail
-                                alt=item.title
-                                width="100px"
-                                height="auto"
-                            )
-                        td #{item.title}
-                        td #{item.price}$
-
-                        td
-                            button(
-                                class="btn btn-warning btn-sm ml-1"
-                                data-id = item.id
-                                button-revive
-                            ) Phuc hoi
-                            button(
-                                class="btn btn-danger btn-sm ml-1"
-                                data-id = item.id
-                                button-delete
-                            ) Xoa vinh vien
-    +pagination(pagination)
-    form(
-        action=""
-        method="POST"
-        id="form-delete-item"
-        data-path=`${prefixAdmin}/trash/delete`
-    )
-    form(
-        action=""
-        method="POST"
-        id="form-revive-item"
-        data-path=`${prefixAdmin}/trash/revive`
-    )
+                            input(type="checkbox" name="checkall")
+                        th STT
+                        th Hinh anh
+                        th Tieu de
+                        th Gia
+                        th Trang thai
+                        th Hanh dong
+                tbody
+                    each item, index in products
+                        tr
+                            th
+                                input(
+                                    type="checkbox"
+                                    name="id"
+                                    value=item.id
+                                )
+                            td #{index + 1}
+                            td
+                                img(
+                                    src=item.thumbnail
+                                    alt=item.title
+                                    width="100px"
+                                    height="auto"
+                                )
+                            td #{item.title}
+                            td #{item.price}$
+                            td
+                                if(item.status == "active")
+                                    a(
+                                        href="javascript:;"
+                                        data-status="active"
+                                        data-id=item.id
+                                        button-change-status
+                                        class="btn btn-success btn-sm ml-1"
+                                    ) Hoat dong
+                                else
+                                    a(
+                                        href="javascript:;"
+                                        data-status="inactive"
+                                        data-id=item.id
+                                        button-change-status
+                                        class="btn btn-danger btn-sm ml-1"
+                                    ) Dung hoat dong
+                            td
+                                if(role.permissions.includes("trashs_revive"))
+                                    button(
+                                        class="btn btn-warning btn-sm ml-1"
+                                        data-id = item.id
+                                        button-revive
+                                    ) Phuc hoi
+                                if(role.permissions.includes("trashs_delete"))
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        data-id = item.id
+                                        button-delete
+                                    ) Xoa vinh vien
+        +pagination(pagination)
+        form(
+            action=""
+            method="POST"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/trash/delete`
+        )
+        form(
+            action=""
+            method="POST"
+            id="form-revive-item"
+            data-path=`${prefixAdmin}/trash/revive`
+        )
+        form(
+            action=""
+            method="POST"
+            id="form-change-status"
+            data-path=`${prefixAdmin}/products/change-status`
+        )
     script(src="/admin/js/script.js")
     script(src="/admin/js/trash.js")
+
 
 
 

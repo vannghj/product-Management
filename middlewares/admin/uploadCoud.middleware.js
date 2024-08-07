@@ -6,6 +6,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_SECRET // Click 'View Credentials' below to copy your API secret
 });
 module.exports.upload = (req, res, next) => {
+    console.log(req.file);
     if (req.file) {
         let streamUpload = (req) => {
             return new Promise((resolve, reject) => {
@@ -24,8 +25,7 @@ module.exports.upload = (req, res, next) => {
         };
         async function upload(req) {
             let result = await streamUpload(req);
-            req.body.thumbnail = result.url;
-            console.log(req.body.thumbnail);
+            req.body[req.file.fieldname] = result.url;
             next();
         }
         upload(req);

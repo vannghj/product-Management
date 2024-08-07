@@ -1,0 +1,35 @@
+extends ../../layouts/default
+include ../../mixin/alert
+block main
+    h1(class="mb-4") Sua nhom quyen
+    if(role.permissions.includes("roles_edit"))
+        +alert-success(3000)
+        +alert-error(3000)
+        form(
+            action=`${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="title") Tieu de
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required
+                    value=data.title
+                )
+            div(class="form-group")
+                label(for="desc") Mo ta
+                input(
+                    type="text"
+                    class="form-control"
+                    id="desc"
+                    name="description"
+                    value=data.description
+                )
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cap nhat

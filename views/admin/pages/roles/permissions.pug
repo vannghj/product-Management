@@ -1,0 +1,165 @@
+extends ../../layouts/default
+include ../../mixin/alert
+block main
+    +alert-success(3000)
+    +alert-error(3000)
+    h1(class="mb-4") Phan quyen
+    if(role.permissions.includes("roles_permissions"))
+        if(records)
+            div(data-records=records)
+            div(class="text-right")
+                button(
+                    type="submit"
+                    class="btn btn-primary mb-3"
+                    button-submit
+                )   Cap nhat
+
+                table(
+                    class="table table-hover table-sm"
+                    table-permisstion
+                )
+                    thead
+                        tr
+                            th Tinh nang
+                            each item in records
+                                th(class="text-center") #{item.title}
+                    tbody
+                        tr(data-name="id" class="d-none")
+                            td
+                            each item in records
+                                td(class="text-center")
+                                    input(type="text", value=item.id)
+                        tr
+                            td(colspan="4")
+                                b Danh muc san pham
+                        tr(data-name="products-category_view")
+                            td Xem
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products-category_create")
+                            td Them moi
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+                        tr(data-name="products-category_edit")
+                            td Chinh sua
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products-category_delete")
+                            td Xoa
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+                        //san pham
+                        tr
+                            td(colspan="4")
+                                b San pham
+                        tr(data-name="products_view")
+                            td Xem
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products_create")
+                            td Them moi
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+                        tr(data-name="products_edit")
+                            td Chinh sua
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="products_delete")
+                            td Xoa
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        //phan quyen
+                        tr
+                            td(colspan="4")
+                                b Nhom quyen
+                        tr(data-name="roles_view")
+                            td Xem
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="roles_create")
+                            td Them moi
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+                        tr(data-name="roles_edit")
+                            td Chinh sua
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="roles_permissions")
+                            td Phan quyen
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        //danh sach tai khoan
+                        tr
+                            td(colspan="4")
+                                b Danh sach tai khoan
+                        tr(data-name="accounts_view")
+                            td Xem
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="accounts_create")
+                            td Them moi
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+                        tr(data-name="accounts_edit")
+                            td Chinh sua
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="accounts_delete")
+                            td Xoa
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        //thung rac
+                        tr
+                            td(colspan="4")
+                                b Thung rac
+                        tr(data-name="trashs_view")
+                            td Xem
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="trashs_revive")
+                            td Phuc hoi
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+                        tr(data-name="trashs_delete")
+                            td Xoa vinh vien
+                            each item in records
+                                td(class="text-center")
+                                    input(type="checkbox")
+
+
+        form(
+            id="form-change-permissions"
+            method="POST"
+            action= `/admin/roles/permissions?_method=PATCH`
+            class="d-none"
+        )
+            div(class="form-group" )
+                input(
+                    type="text"
+                    class="form-control"
+                    name="permissions"
+                )
+    script(src="/admin/js/roles.js")
