@@ -1,8 +1,10 @@
 extends ../../layouts/default
 include ../../mixin/box-head
 include ../../mixin/product-layout
+include ../../mixin/alert
 
 block main
+    +alert-success(3000)
     .container.my-3
         .row
             .col-12

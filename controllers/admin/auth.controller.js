@@ -33,7 +33,10 @@ module.exports.loginPost = async (req, res) => {
         res.redirect("back");
         return;
     }
-    res.cookie("token", user.token);
+    const expriresCookie = 30*21*60*1000;
+    res.cookie("token", user.token, {
+        expires: new Date(Date.now()+ expriresCookie)
+    });
     res.redirect("/admin/dashboard");
 };
 module.exports.logout = async (req, res) => {
