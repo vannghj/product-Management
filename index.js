@@ -13,6 +13,15 @@ const port = process.env.PORT;
 const methodOverride = require("method-override");
 const route = require("./routes/client/index.route");
 const routeAdmin = require("./routes/admin/index");
+const http = require('http');
+const { Server } = require("socket.io");
+//socketIO
+const server = http.createServer(app);
+const io = new Server(server);
+io.on('connection', (socket) => {
+    console.log('a user connected', socket.id);
+});
+//End socketIO
 database.connect();
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -28,6 +37,7 @@ app.use(flash());
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')))
 
 //
+
 app.locals.prefixAdmin =systemCongig.prefixAdmin;
 app.locals.moment = moment;
 
@@ -41,6 +51,6 @@ app.get("*",(req,res) => {
     });
 
 })
-app.listen(port, () => {
+server.listen(port, () => {
     console.log("app listening");
 })
