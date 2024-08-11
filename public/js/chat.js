@@ -53,6 +53,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
 
     body.appendChild(div);
     body.scrollTop = bodyChat.scrollHeight;
+    const gallery = new Viewer(div);
 })
 //end
 // scroll chat to bottom
@@ -81,4 +82,11 @@ if(emojiPicker) {
         inputChat.focus();
     })
 }
+
 //end show icon chat
+//preview full image
+const bodyChatPreviewImage = document.querySelector(".chat .inner-body");
+if(bodyChatPreviewImage) {
+    const gallery = new Viewer(bodyChatPreviewImage);
+}
+//end preview full image
