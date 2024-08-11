@@ -36,7 +36,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
         div.classList.add("inner-incoming");
     }
     if(data.content) {
-        htmlContent = `<div className="inner-content">${data.content}</div>`
+        htmlContent = `<div class="inner-content">${data.content}</div>`
     }
     if(data.images.length > 0) {
         htmlImages += `<div class="inner-images">`;
