@@ -33,7 +33,7 @@ module.exports.loginPost = async (req, res) => {
         res.redirect("back");
         return;
     }
-    const expriresCookie = 30*21*60*1000;
+    const expriresCookie = 30*24*60*60*1000;
     res.cookie("token", user.token, {
         expires: new Date(Date.now()+ expriresCookie)
     });

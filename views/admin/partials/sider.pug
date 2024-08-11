@@ -15,3 +15,5 @@
                     a(href=`${prefixAdmin}/accounts`) Danh sach tai khoan
                 if(role.permissions.includes("trashs_view"))
                     a(href=`${prefixAdmin}/trash`) Thung rac
+                if(role.permissions.includes("setting_view"))
+                    a(href=`${prefixAdmin}/setting/general`) Cai dat chung

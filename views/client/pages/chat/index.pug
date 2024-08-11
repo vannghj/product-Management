@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+include ../../mixin/box-head.pug
+
+block main
+    .container.my-3
+        .row
+            .col-12
+                +box-head("Chat")
+
+        .row
+            .col-12
+                .chat
+                    .inner-body
+                        .inner-incomming
+                            .inner-name Em Yêu
+                            .inner-content
+                                | A oi sang nha em nha
+                        .inner-outgoing
+                            .inner-content
+                                | Thế à? Ok e iu
+                        .inner-incoming
+                            .inner-name Em Yêu
+                            .inner-content
+                                | Nhanh nha nhanh nha
+                    .inner-foot
+                        form(
+                            class="inner-form"
+                            action=""
+                        )
+                            input(
+                                type="text"
+                                placeholder="Nhập nội dung..."
+                                name="content"
+                            )
+                            button
+                                i.fa-solid.fa-paper-plane

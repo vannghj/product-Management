@@ -1,0 +1,10 @@
+extends ../../layouts/default.pug
+include ../../mixin/box-head.pug
+
+block main
+    .container
+        .row
+            .col-12
+                +box-head(pageTitle)
+
+                a(href="/" class="btn ßbtn-warning") Trở về trang chủ

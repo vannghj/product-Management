@@ -1,5 +1,6 @@
 const md5 = require("md5");
 const User = require("../../models/user.model");
+const Cart = require("../../models/cart.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const generateHelper = require("../../helpers/generate");
 const sendMailHelper = require("../../helpers/sendMail");
@@ -39,27 +40,37 @@ module.exports.loginPost = async (req, res) => {
         deleted: false
     })
     if(!user) {
-        res.flash("error", "Email khong ton tai!");
+        req.flash("error", "Email khong ton tai!");
         res.redirect("back");
         return;
     }
     if(md5(password) !== user.password) {
-        res.flash("error", "Sai mat khau!");
+        req.flash("error", "Sai mat khau!");
         res.redirect("back");
         return;
     }
     if(user.status === "inactive") {
-        res.flash("error", "Tai khoan da bi khoa!");
+        req.flash("error", "Tai khoan da bi khoa!");
         res.redirect("back");
         return;
     }
-    const expriresCookie = 24* 60 * 60 * 1000 * 90;
-    res.cookie("tokenUser", user.tokenUser, {
-        expires: new Date(Date.now()+ expriresCookie)
-    });
+    const cart = await Cart.findOne({
+        user_id: user.id
+    })
+    if(cart) {
+        res.cookie("cartId", cart.id);
+    }else {
+        await Cart.updateOne({
+            _id: req.cookies.cartId
+        }, {
+            user_id: user.id
+        })
+    }
+    res.cookie("tokenUser", user.tokenUser)
     res.redirect("/");
 };
 module.exports.logout = async (req, res) => {
+    res.clearCookie("cartId");
     res.clearCookie("tokenUser");
     res.redirect("back");
 

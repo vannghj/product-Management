@@ -2,7 +2,6 @@
 const buttonStatus = document.querySelectorAll("[button-status]");
 if(buttonStatus.length > 0) {
     let url = new URL(window.location.href);
-    console.log(url);
     buttonStatus.forEach(button => {
         button.addEventListener("click", () => {
             const status = button.getAttribute("button-status");
@@ -12,7 +11,6 @@ if(buttonStatus.length > 0) {
             else {
                 url.searchParams.delete("status");
             }
-            console.log(url.href);
             window.location.href = url.href;
         });
     });
@@ -169,7 +167,6 @@ if(sort) {
     if(sortKey && sortValue) {
         const stringSort = `${sortKey}-${sortValue}`;
         const optionSelected = sortSelect.querySelector(`option[value=${stringSort}]`);
-        console.log(optionSelected);
         optionSelected.selected = true;
     }
 }
