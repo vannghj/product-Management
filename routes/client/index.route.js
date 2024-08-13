@@ -17,6 +17,7 @@ module.exports = (app) => {
     app.use(cartMiddleware.cartId);
     app.use(userMiddleware.infoUser);
     app.use(settingMiddleware.settingGeneral);
+    app.use(settingMiddleware.settingGeneral);
     app.use("/",homeRoute);
     app.use("/chat",authMiddleware.requireAuth,chatRoute);
     app.use("/users",authMiddleware.requireAuth,usersRoute);

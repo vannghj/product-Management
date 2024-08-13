@@ -1,4 +1,5 @@
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+
 const upload = new FileUploadWithPreview.FileUploadWithPreview('upload-images',{
     multiple: true,
     maxFileCount: 6
@@ -29,7 +30,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     let htmlFullName = "";
     let htmlContent = "";
     let htmlImages = "";
-    if(myId == data.userId) {
+    if(myId === data.userId) {
         div.classList.add("inner-outgoing");
     } else {
         htmlFullName = `<div class="inner-name">${data.fullName}</div>`;
