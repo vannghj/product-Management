@@ -11,7 +11,7 @@ const roomChatSchema = new mongoose.Schema(
                 user_id: String,
                 role: String,
             }
-        ]
+        ],
         "deleted": {
             type: Boolean,
             default: false

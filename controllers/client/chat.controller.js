@@ -4,11 +4,12 @@ const {info} = require("./user.controller");
 const chatSocket = require("../../sockets/client/chat.socket");
 
 module.exports.index = async (req, res) => {
-
+    const roomChatId = req.params.roomChatId;
     //socketio
-    chatSocket(res);
+    chatSocket(req, res);
     //endsocketio
     const chats = await Chat.find({
+        room_chat_id: roomChatId,
         deleted: false
     });
     for(const chat of chats) {

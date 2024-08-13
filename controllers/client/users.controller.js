@@ -1,5 +1,6 @@
 const User = require("../../models/user.model");
 const usersSocket = require("../../sockets/client/users.socket");
+const {infoUser} = require("../../middlewares/client/user.middleware");
 
 module.exports.notFriend = async (req, res) => {
     //socket
@@ -78,9 +79,14 @@ module.exports.friends = async (req, res) => {
         status: "active",
         deleted: false
     }).select("id avatar fullName statusOnline");
+    for( const user of users) {
+
+        const infoFriend = friendList.find(friend => friend.user_id === user.id);
+        user.infoFriend = infoFriend;
+    }
     res.render("client/pages/users/friends", {
         pageTitle: "Danh sach ban be",
-        users: users
+        users: users,
     });
 
 };
